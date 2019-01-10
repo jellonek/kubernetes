@@ -3707,9 +3707,6 @@ func ValidateService(service *core.Service) field.ErrorList {
 				allErrs = append(allErrs, field.Invalid(portPath, port.Port, fmt.Sprintf("may not expose port %v externally since it is used by kubelet", ports.KubeletPort)))
 			}
 		}
-		if service.Spec.ClusterIP == "None" {
-			allErrs = append(allErrs, field.Invalid(specPath.Child("clusterIP"), service.Spec.ClusterIP, "may not be set to 'None' for LoadBalancer services"))
-		}
 	case core.ServiceTypeNodePort:
 		if service.Spec.ClusterIP == "None" {
 			allErrs = append(allErrs, field.Invalid(specPath.Child("clusterIP"), service.Spec.ClusterIP, "may not be set to 'None' for NodePort services"))
